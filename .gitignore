@@ -1,0 +1,38 @@
+# Local-only development plan (intentionally never committed).
+/PLAN.md
+
+# Build output and local CMake configuration.
+/build/
+/out/
+/cmake-build-*/
+/CMakeUserPresets.json
+/compile_commands.json
+
+# Project-local vcpkg installations; the shared checkout is a sibling directory.
+/vcpkg_installed/
+
+# Downloaded documentation, search indexes, and embedding models.
+/data/
+/cache/
+/models/
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+
+# Local session history, editor state, and generated binaries.
+/.local/
+/.cache/
+__pycache__/
+*.pyc
+/.vs/
+*.user
+*.suo
+*.obj
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.log

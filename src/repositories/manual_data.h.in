@@ -1,0 +1,10 @@
+#ifndef MANBO_REPOSITORIES_MANUAL_DATA_H_
+#define MANBO_REPOSITORIES_MANUAL_DATA_H_
+
+#include <string_view>
+
+namespace manbo {
+inline constexpr std::string_view kManboManual = R"manbo_manual(@MANBO_MANUAL_TEXT@)manbo_manual";
+}  // namespace manbo
+
+#endif  // MANBO_REPOSITORIES_MANUAL_DATA_H_

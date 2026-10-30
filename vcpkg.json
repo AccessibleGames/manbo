@@ -1,0 +1,17 @@
+{
+  "name": "manbo",
+  "version-string": "0.2.0-dev",
+  "description": "Offline terminal browser for developer documentation and manuals on Linux and Windows.",
+  "builtin-baseline": "866e9e258a76437074a5cf02d4c2d71b53bff2f8",
+  "dependencies": [
+    "boost-asio",
+    "cli11",
+    "fmt",
+    "gtest",
+    "libxml2",
+    "nlohmann-json",
+    "openssl",
+    "sqlite3",
+    "tl-expected"
+  ]
+}

@@ -1,0 +1,16 @@
+name: mlc
+channels:
+  - conda-forge
+dependencies:
+  - cmake>=3.25
+  - ninja
+  - clang=22
+  - libboost-headers>=1.86
+  - cli11
+  - fmt
+  - gtest
+  - libxml2
+  - nlohmann_json
+  - sqlite
+  - openssl
+  - tl-expected

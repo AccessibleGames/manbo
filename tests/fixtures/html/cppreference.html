@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Self-authored C++ rendering fixture</title></head>
+<body>
+<nav>Navigation chrome must not enter the document.</nav>
+<main id="mw-content-text">
+<h1>std::forward_list</h1>
+<p>Defined in header <code>&lt;forward_list&gt;</code>. A <strong>singly linked</strong> sequence container with <em>forward-only</em> traversal.</p>
+<blockquote>Self-authored rendering fixture, not a downloaded or exhaustive cppreference page.</blockquote>
+<h2 id="synopsis">Synopsis</h2>
+<pre><code>#include &lt;forward_list&gt;
+
+std::forward_list&lt;int&gt; values{1, 2, 3};
+auto before = values.before_begin();
+values.insert_after(before, 42);  // insert at the front
+</code></pre>
+<h2 id="description">Description</h2>
+<p>Unlike <a href="cpp/vector">std::vector</a>, the container does not provide random-access indexing. Use an iterator identifying the element <strong>before</strong> an insertion or erasure.</p>
+<ul><li>Forward traversal through the sequence.</li><li>Insertion and erasure after a valid iterator.</li></ul>
+<h2 id="members">Member functions</h2>
+<table>
+<thead><tr><th>Operation</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>before_begin()</code></td><td>Position preceding the first element.</td></tr>
+<tr><td><code>insert_after(pos, value)</code></td><td>Insert a value after a valid position.</td></tr>
+<tr><td><code>erase_after(pos)</code></td><td>Remove the element following a valid position.</td></tr>
+</tbody>
+</table>
+<h3 id="references">See also</h3>
+<p><a href="cpp/insert-after">std::forward_list::insert_after</a> · <a href="cpp/vector">std::vector</a></p>
+</main>
+<footer>Website footer must not enter the document.</footer>
+</body>
+</html>

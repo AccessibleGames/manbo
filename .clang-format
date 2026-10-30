@@ -1,0 +1,21 @@
+# Keep to long-standing clang-format options so editor and CI versions agree.
+BasedOnStyle: Google
+Standard: c++20
+IndentWidth: 2
+ContinuationIndentWidth: 2
+ColumnLimit: 80
+
+# Put function names below return/specifier prefixes. Keep argument lists
+# readable by avoiding horizontal packing when they wrap.
+AlwaysBreakAfterReturnType: All
+AlwaysBreakTemplateDeclarations: Yes
+BinPackArguments: false
+BinPackParameters: false
+AlignAfterOpenBracket: false
+
+# Keep control flow and function bodies expanded enough to scan.
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+MaxEmptyLinesToKeep: 2

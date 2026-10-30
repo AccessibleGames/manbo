@@ -1,0 +1,122 @@
+NAME
+  manbo - browse developer documentation and manuals offline
+
+SYNOPSIS
+  manbo [query ...] [--data DIRECTORY] [--workers N]
+  manbo manbo
+  manbo man [section] name
+  manbo search [query] [--json]
+  manbo read "name(section)" [--json]
+  manbo tui [query] [--stats FILE]
+  manbo import html|text PATH --pack NAME [--family FAMILY] [--data DIRECTORY]
+  manbo index [--data DIRECTORY]
+  manbo format FILE [--family FAMILY] [--width N] [--output FILE]
+  manbo snapshot [query] --reader --output FILE [--format html|ansi|plain]
+
+DESCRIPTION
+  Search local documents, preview a result, and open it in a terminal reader.
+  manbo defaults to the TUI; manbo tui is the explicit equivalent. Search/read
+  commands and --json produce output suitable for scripts and pipes. Without a
+  real terminal, the default TUI reports an error; use an explicit CLI command.
+  The built-in manbo(1) manual works without downloaded documents.
+  Without a query, the TUI opens its search prompt before accessing the catalog.
+  Enter submits the query; an empty submitted query lists every installed page.
+
+DOCUMENTATION SOURCES
+  --data DIRECTORY selects a catalog.json and its original files. Otherwise,
+  Manbo searches the working directory and executable ancestors for
+  data/library, then data/official-samples. --samples selects the demonstration
+  corpus instead. It cannot be combined with --data.
+
+  Import an extracted HTML tree with the C++ utility:
+    manbo import html /path/to/guide --pack project-guide --edition 1.0
+  Use --family cppreference, posix, gnu, or linux-man for those source layouts;
+  the default generic adapter handles ordinary HTML. No network or Python is
+  required. --source-url URL optionally records the upstream directory URL.
+
+  Original files, assets, and notices retain their hierarchy under sources/.
+  Pack manifests record SHA256 hashes. Reimport identical files with the same
+  --pack name; use a new name when any file changes to retain both editions.
+
+  Import already formatted UTF-8 text with manbo import text PATH. For manuals,
+  use --family linux-man and filenames such as socket.2.txt. Raw roff/mdoc needs
+  a formatter such as man-db/groff before import.
+
+  Imports prepare the SQLite metadata index. Rebuild after catalog edits or
+  copying a library with manbo index --data DIRECTORY. Missing or stale indexes
+  use JSON; the index command also repairs a corrupt cache.
+
+  manbo format FILE renders a local HTML document as terminal-readable text.
+  --output writes a new derived file; existing files are not overwritten.
+  See docs/local-documents.md for collection layout, metadata, and examples;
+  docs/adapters.md explains how to add source-family interpretation.
+
+TERMINAL INPUT
+  j / Down, k / Up        Scroll one line or select a result.
+  Space / PageDown       Move down one viewport.
+  b / PageUp             Move up one viewport.
+  g, G                   Go to the beginning or end.
+  Enter                  Open a result or selected reference; otherwise scroll.
+  Tab, Shift+Tab         Select the next/previous distinct page reference.
+  Esc                    Go back a page or to results; quit from results.
+  q, Ctrl+Q              Quit.
+  Ctrl+C                 Cancel a prompt; otherwise quit.
+  Ctrl+L                 Redraw.
+  ?                      Open this manual.
+  /                      Find in the reader; enter a query in results.
+  n, N                   Next/previous in-page match.
+  :                      Enter a documentation command.
+
+  In a prompt, Enter submits, Esc cancels, Backspace removes a character, and
+  Ctrl+U clears the line. Shortcut letters are ordinary text while editing.
+
+IN-PAGE SEARCH
+  Find is literal, ASCII case-insensitive, and exact for non-ASCII text. Matches
+  can cross inline styles but cannot span rendered line boundaries. Resizing
+  recalculates positions; n/N wrap between occurrences.
+
+REFERENCES AND HISTORY
+  Tab selects and highlights a reference; Enter opens its installed page or
+  section. Reference targets appear on the bottom line while selected. Plain
+  man-page SEE ALSO names resolve by name(section). Browsing never downloads
+  targets or opens an external browser. Missing targets leave the page visible.
+
+  Esc or :back restores the previous page and reader position without rereading
+  its source. History retains up to 16 pages; starting a new search clears it.
+  Esc during a pending reference cancels that request before going back.
+
+COMMANDS
+  :man printf            Search manuals by name.
+  :man 3 printf          Open printf(3).
+  :man 3p socket         Open socket(3p).
+  :manbo std::vector     Search a symbol or words.
+  :search words         Search a query.
+  :open page-id         Open an exact ID or unambiguous name(section).
+  :help                 Open this manual.
+  :back                 Return to the previous page or results.
+  :q                    Quit.
+
+  Commands are parsed by Manbo and never executed by a shell.
+
+OPTIONS
+  --data DIRECTORY      Select an offline catalog.
+  --samples             Select demonstration pages.
+  --workers N           1..16 workers; default 1. Zero is for bounded samples.
+  --json                Return search/read results as JSON. The body field
+                        contains unchanged source bytes.
+  --stats FILE          Save TUI runtime counters on exit.
+  --help, --version     Show CLI help or version.
+
+LIMITATIONS
+  Imports accept extracted HTML or formatted text. Native archive extraction
+  and downloads are deferred. Roff/mdoc needs an external formatter. Indexed
+  full-text search remains unfinished; references require a catalog entry.
+  HTML is adapted to terminal layout. Images use alternative text; visual
+  diagrams and CSS-dependent layouts need further work.
+
+EXIT STATUS
+  0 indicates success; nonzero indicates an argument, source, output, or platform
+  error. Empty search results are successful.
+
+SEE ALSO
+  README.md, docs/local-documents.md, docs/adapters.md, docs/development.md

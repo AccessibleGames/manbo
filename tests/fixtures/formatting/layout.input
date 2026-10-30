@@ -1,0 +1,4 @@
+template <typename T> [[nodiscard]] static inline constexpr auto Function(T documented_value, int selected_count, int enabled_flags, bool readiness_confirmed) -> int { return Bar(documented_value, selected_count, enabled_flags, readiness_confirmed); }
+int FunctionDeclaration(int first_configuration_value, int second_configuration_value, int third_configuration_value, bool fourth_configuration_value);
+void Short(int selected_value) { Bar(selected_value); }
+void Calls() { Bar(1, 2); Bar(first_argument_with_context, second_argument_with_context, third_argument_with_context, fourth_argument_with_context); }

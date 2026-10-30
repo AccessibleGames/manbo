@@ -1,0 +1,111 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "linux-mlc",
+      "displayName": "Linux Debug (Conda mlc)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "$env{CONDA_PREFIX}/bin/clang-22",
+        "CMAKE_PREFIX_PATH": "$env{CONDA_PREFIX}",
+        "BUILD_TESTING": "OFF"
+      }
+    },
+    {
+      "name": "linux-mlc-tests",
+      "displayName": "Linux Debug with tests (Conda mlc)",
+      "inherits": "linux-mlc",
+      "binaryDir": "${sourceDir}/build/linux/tests",
+      "cacheVariables": { "BUILD_TESTING": "ON" }
+    },
+    {
+      "name": "linux-mlc-release",
+      "displayName": "Linux Release (Conda mlc)",
+      "inherits": "linux-mlc",
+      "binaryDir": "${sourceDir}/build/linux/release",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "linux-mlc-library-only",
+      "displayName": "Linux library-only checks (Conda mlc)",
+      "inherits": "linux-mlc",
+      "binaryDir": "${sourceDir}/build/linux/library-only",
+      "cacheVariables": {
+        "BUILD_TESTING": "ON",
+        "MANBO_BUILD_APP": "OFF",
+        "MANBO_BUILD_TERMINAL_UI": "OFF",
+        "MANBO_HEADLESS_ONLY": "ON"
+      }
+    },
+    {
+      "name": "windows-debug",
+      "displayName": "Windows clang-cl Debug (shared vcpkg)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/windows/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "clang-cl",
+        "CMAKE_LINKER": "lld-link",
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-windows",
+        "VCPKG_MANIFEST_MODE": "OFF",
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows clang-cl Release (shared vcpkg)",
+      "inherits": "windows-debug",
+      "binaryDir": "${sourceDir}/build/windows/release",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "windows-headless-release",
+      "displayName": "Release with OS-header-free headless adapters",
+      "inherits": "windows-release",
+      "binaryDir": "${sourceDir}/build/windows/headless-release",
+      "cacheVariables": { "MANBO_HEADLESS_ONLY": "ON" }
+    },
+    {
+      "name": "windows-library-only",
+      "displayName": "Reusable libraries without application or terminal UI",
+      "inherits": "windows-headless-release",
+      "binaryDir": "${sourceDir}/build/windows/library-only",
+      "cacheVariables": {
+        "MANBO_BUILD_APP": "OFF",
+        "MANBO_BUILD_TERMINAL_UI": "OFF"
+      }
+    },
+    {
+      "name": "windows-manifest-debug",
+      "displayName": "Windows clang-cl Debug (project-local manifest)",
+      "inherits": "windows-debug",
+      "binaryDir": "${sourceDir}/build/windows/manifest-debug",
+      "cacheVariables": {
+        "VCPKG_MANIFEST_MODE": "ON",
+        "VCPKG_INSTALLED_DIR": "${sourceDir}/vcpkg_installed"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "linux-mlc", "configurePreset": "linux-mlc" },
+    { "name": "linux-mlc-tests", "configurePreset": "linux-mlc-tests" },
+    { "name": "linux-mlc-release", "configurePreset": "linux-mlc-release" },
+    { "name": "linux-mlc-library-only", "configurePreset": "linux-mlc-library-only" },
+    { "name": "windows-debug", "configurePreset": "windows-debug" },
+    { "name": "windows-release", "configurePreset": "windows-release" },
+    { "name": "windows-headless-release", "configurePreset": "windows-headless-release" },
+    { "name": "windows-library-only", "configurePreset": "windows-library-only" }
+  ],
+  "testPresets": [
+    { "name": "linux-mlc-tests", "configurePreset": "linux-mlc-tests", "output": { "outputOnFailure": true } },
+    { "name": "linux-mlc-library-only", "configurePreset": "linux-mlc-library-only", "output": { "outputOnFailure": true } },
+    { "name": "windows-debug", "configurePreset": "windows-debug", "output": { "outputOnFailure": true } },
+    { "name": "windows-release", "configurePreset": "windows-release", "output": { "outputOnFailure": true } },
+    { "name": "windows-headless-release", "configurePreset": "windows-headless-release", "output": { "outputOnFailure": true } },
+    { "name": "windows-library-only", "configurePreset": "windows-library-only", "output": { "outputOnFailure": true } }
+  ]
+}
